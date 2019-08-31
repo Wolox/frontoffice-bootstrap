@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { t } from 'i18next';
 import { arrayOf, any, bool } from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import resourceActions from '~redux/Resource/actions';
-import { Link } from 'react-router-dom';
+
 
 import styles from './styles.module.scss';
 
@@ -12,7 +13,6 @@ import structure from '~constants/structure';
 
 import Paginator from '~components/Paginator';
 
-import styles from './styles.module.scss';
 import { TABLE_HEADERS, BASE_COLUMNS } from './constants';
 import { parseColumns, parseList } from './utils';
 
