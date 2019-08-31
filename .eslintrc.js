@@ -10,7 +10,8 @@ module.exports = {
           '~constants': './src/constants',
           '~redux': './src/redux',
           '~services': './src/services',
-          '~utils': './src/utils'
+          '~utils': './src/utils',
+          '~serializer': './src/serializer'
         }
       }
     }
