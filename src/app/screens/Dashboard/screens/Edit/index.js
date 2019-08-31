@@ -18,7 +18,7 @@ class Edit extends Component {
 
   render() {
     return (
-      <div className={styles.app}>
+      <>
         <header className={styles.appHeader}>
           <img src={logo} className={styles.appLogo} alt="logo" />
           <p className={styles.text}>{this.state.data.name} edition</p>
@@ -26,7 +26,7 @@ class Edit extends Component {
             Learn React
           </a>
         </header>
-      </div>
+      </>
     );
   }
 }

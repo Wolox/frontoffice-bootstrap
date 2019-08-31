@@ -4,6 +4,9 @@ import { t } from 'i18next';
 import { arrayOf, any, bool } from 'prop-types';
 
 import resourceActions from '~redux/Resource/actions';
+import { Link } from 'react-router-dom';
+
+import styles from './styles.module.scss';
 
 import structure from '~constants/structure';
 
@@ -33,8 +36,13 @@ class List extends Component {
     const columns = parseColumns({ columns: TABLE_HEADERS, baseColumns: BASE_COLUMNS });
     const bodies = parseList(list);
     return (
-      <div className={styles.container}>
-        <Table
+      <>
+        <div className={`row space-between middle ${styles.listHeader}`}>
+          <h1 className="title2">{t('List:componentList', { component: this.state.data.name })}</h1>
+          <Link to={`${this.props.match.path}/new`} className={`${styles.link} button-primary`}>
+            {t('List:create')}
+          </Link>
+          <Table
           bodies={bodies}
           columns={columns}
           error={listError}
@@ -43,7 +51,8 @@ class List extends Component {
           config={{ styles: { headers: styles.headers } }}
         />
         <Paginator />
-      </div>
+        </div>
+      </>
     );
   }
 }

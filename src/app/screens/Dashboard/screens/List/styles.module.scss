@@ -1,32 +1,7 @@
-.container {
-  width: 100%;
-}
+@import 'src/scss/colors';
 
-.app-logo {
-  animation: app-logo-spin infinite 20s linear;
-  height: 40vmin;
-  margin-bottom: 40px;
-}
-
-.app-header {
-  align-items: center;
-  background-color: #282C34;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 100vh;
-}
-
-.text {
-  color: #FFF;
-  font-size: calc(10px + 2vmin);
-  margin-bottom: calc(30px + 2vmin);
-}
-
-.app-link {
-  color: #61DAFB;
-  font-size: calc(10px + 2vmin);
-  text-decoration: underline;
+.link {
+  align-self: flex-end;
 }
 
 .headers {
@@ -37,13 +12,7 @@
   grid-template-columns: repeat(6, 200px);
 }
 
-
-@keyframes app-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
+.list-header {
+  border-bottom: 1px solid $gray-1;
+  padding-bottom: 20px;
 }

@@ -1,0 +1,27 @@
+.MuiOutlinedInput-notchedOutline {
+
+  @extend .input;
+}
+
+.MuiInputBase-formControl {
+  height: 40px;
+}
+
+.MuiOutlinedInput-input {
+  padding: 0;
+  z-index: 2;
+}
+
+.MuiButtonBase-root.MuiIconButton-root {
+  z-index: 1;
+  transform: scale(0.8) !important;
+  padding: 8px;
+}
+
+.MuiButtonBase-root.MuiIconButton-focusVisibile {
+  transform: scale(0.8);
+}
+
+.MuiInputBase-root.MuiOutlinedInput-adornedStart {
+  padding-left: 0;
+}

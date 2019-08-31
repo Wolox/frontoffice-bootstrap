@@ -1,5 +1,5 @@
 export const FIELDS = {
-  email: 'email',
+  user: 'user',
   password: 'password'
 };
 

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-
-import styles from './styles.module.scss';
+import { connect } from 'react-redux';
 
 import structure from '~constants/structure';
+
+import { actionCreators as modalActions } from '~redux/modal/actions';
 
 import CreationContainer from './layout';
 
@@ -20,8 +21,23 @@ class Create extends Component {
   // TODO integrate with api sauce
   handleSubmit = values => {};
 
+  onCancel = () => {
+    this.props.dispatch(modalActions.toggleCancelModal());
+  };
+
+  onDelete = () => {
+    this.props.dispatch(modalActions.toggleDeleteModal());
+  };
+
   render() {
-    return <CreationContainer modelData={this.state.data} onSubmit={this.handleSubmit} />;
+    return (
+      <CreationContainer
+        modelData={this.state.data}
+        onSubmit={this.handleSubmit}
+        handleCancel={this.onCancel}
+        handleDelete={this.onDelete}
+      />
+    );
   }
 }
-export default Create;
+export default connect()(Create);

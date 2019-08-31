@@ -15,12 +15,30 @@
 .button-primary {
   background: $primary-color;
   height: 40px;
-  padding: 10px 20px;
+  padding: 10px 40px;
+  line-height: 20px;
   color: $white;
   border-radius: 4px;
+  transition: background 0.3s ease-in-out;
+
+  &:hover,
+  &:focus {
+    background: darken($primary-color, 5%);
+    color: $white;
+  }
+}
+
+.button-secondary {
+  border: 1px solid $primary-color;
+  color: $primary-color;
+  height: 40px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  transition: border-color, color 0.3s ease-in-out;
 
   &:hover {
-    background: darken($primary-color, 5%);
+    border-color: darken($primary-color, 5%);
+    color: darken($primary-color, 5%);
   }
 }
 
@@ -28,5 +46,11 @@
   font-size: 32px;
   line-height: 40px;
   font-weight: 400;
+  color: desaturate(darken($primary-color, 25%), 50%);
+}
+
+.title2 {
+  font-size: 32px;
+  line-height: 40px;
   color: desaturate(darken($primary-color, 25%), 50%);
 }

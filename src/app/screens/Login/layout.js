@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { t } from 'i18next';
 import { Field, reduxForm } from 'redux-form';
 
+import logo from '~assets/logo-black.png';
+
 import InputLabel from '../../components/InputLabel';
 
 import { FIELDS, LOGIN_FORM_NAME } from './constants';
@@ -12,13 +14,14 @@ function Login({ handleSubmit }) {
   return (
     <div className={`${styles.loginContainer} row middle center`}>
       <form className={`column middle ${styles.formWrapper}`} onSubmit={handleSubmit}>
+        <img src={logo} alt="logo" className={styles.logo} />
         <h2 className="title1 m-bottom-8 self-center">{t('Login:login')}</h2>
         <Field
           component={InputLabel}
           label={t('Login:email')}
-          name={FIELDS.email}
-          inputId={FIELDS.email}
-          dataFor={FIELDS.email}
+          name={FIELDS.user}
+          inputId={FIELDS.user}
+          dataFor={FIELDS.user}
           inputType="text"
           inputClassName="m-bottom-3"
           placeholder={t('Login:emailPlaceholder')}
