@@ -10,7 +10,6 @@ import Row from './components/Row';
 
 function Body({ columns, config, title, rows, emptyBodyMessage }) {
   const { styles: configStyles = {} } = config;
-  const { component: EmptyMessage, messageProps } = emptyBodyMessage;
 
   return (
     <div className={classNames('grid', styles.bodyContent, configStyles.bodyContent)}>
@@ -27,7 +26,7 @@ function Body({ columns, config, title, rows, emptyBodyMessage }) {
               url={row.url}
             />
           ))}
-        {!rows.length && <EmptyMessage {...messageProps} />}
+        {!rows.length && emptyBodyMessage}
       </div>
     </div>
   );
@@ -37,7 +36,7 @@ Body.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   columns: columnsType,
   config: configType,
-  emptyBodyMessage: emptyMessageType,
+  emptyBodyMessage: string,
   rows: arrayOf(rowType),
   title: string
 };

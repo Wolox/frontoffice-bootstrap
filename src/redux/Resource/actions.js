@@ -12,16 +12,17 @@ import { PAGE } from './constants';
 export const actions = createTypes(completeTypes(['GET_RESOURCE']), '@@RESOURCE');
 
 const actionCreators = {
-  getOpportunities: (resource, page, limit) => ({
+  getResource: (resource, page, limit) => ({
     type: actions.GET_RESOURCE,
     target: PAGE,
     service: getList,
     payload: { resource, page, limit },
-    successSelector: response => defaultCamelcase(response.data.page),
-    failureSelector: response => response.status,
+    successSelector: response => defaultCamelcase.serialize(response.data.page),
+    failureSelector: response => response.data,
     injections: [
       withPostSuccess((dispatch, response) => {
-        dispatch(paginatorActions.setPagingOptions(formatPaging(response)));
+        console.log('dasdfa');
+        dispatch(paginatorActions.setPagingOptions(formatPaging(response.data)));
       })
     ]
   })

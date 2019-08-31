@@ -3,12 +3,15 @@ import { createBrowserHistory } from 'history';
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import { reducer as form } from 'redux-form';
 import thunk from 'redux-thunk';
+import { fetchMiddleware } from 'redux-recompose';
 
 /*
  * TODO Add this if you need it
  * import AnalyticsMiddleware from '../services/AnalyticsService';
  */
 import { reducer as auth } from './Auth/reducer';
+import paginator from './Paginator/reducer';
+import resource from './Resource/reducer';
 
 export const history = createBrowserHistory();
 
@@ -16,10 +19,12 @@ export const history = createBrowserHistory();
 const reducers = combineReducers({
   auth,
   form,
+  paginator,
+  resource,
   router: connectRouter(history)
 });
 
-const middlewares = [thunk, routerMiddleware(history)];
+const middlewares = [thunk, routerMiddleware(history), fetchMiddleware];
 const enhancers = [];
 
 // TODO Add this if you need it.

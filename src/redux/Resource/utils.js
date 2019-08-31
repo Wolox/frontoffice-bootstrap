@@ -1,6 +1,3 @@
 import { defaultCamelcase } from '~serializer/defaultSerializer';
 
-export const formatPaging = response => {
-  delete response.page;
-  return defaultCamelcase.serialize(response);
-};
+export const formatPaging = ({ page, ...rest }) => defaultCamelcase.serialize(rest);

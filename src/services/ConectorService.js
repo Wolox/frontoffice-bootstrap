@@ -1,6 +1,15 @@
 import api from '~config/api';
 
-export const getList = (resource, params) => api.get(`/${resource}`, params);
+import { data } from '~redux/Resource/data';
+
+export const getList = () =>
+  new Promise(resolve => {
+    setTimeout(() => {
+      resolve({ ok: true, data });
+    }, 1000);
+  });
+
+// api.get(`/${resource}`, params);
 
 export const getDetail = (resource, id) => api.get(`/${resource}/${id}`);
 

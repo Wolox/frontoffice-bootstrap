@@ -8,7 +8,6 @@ import styles from './styles.module.scss';
 import { bodyType, configType, columnsType, emptyMessageType } from './propTypes';
 
 function Table({ bodies, className, columns, config, error, errorMessage, loading }) {
-  const { component: ErrorMessage, messageProps } = errorMessage;
   const { styles: configStyles = {} } = config;
   return (
     <div className={`grid ${styles.container} ${className}`}>
@@ -27,7 +26,7 @@ function Table({ bodies, className, columns, config, error, errorMessage, loadin
           ))}
         </div>
       )}
-      {error && <ErrorMessage {...messageProps} />}
+      {error && { errorMessage }}
     </div>
   );
 }
@@ -39,8 +38,7 @@ Table.propTypes = {
   className: string,
   config: configType,
   error: number,
-  errorMessage: emptyMessageType,
-  hasActions: bool
+  errorMessage: string
 };
 
 Table.defaultProps = {
