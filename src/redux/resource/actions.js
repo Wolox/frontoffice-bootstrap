@@ -29,7 +29,7 @@ export const actionCreators = {
     target: 'page',
     service: ConectorService.getList,
     payload: { resource, page, limit },
-    successSelector: response => defaultCamelcase.serialize(response.data),
+    successSelector: response => defaultCamelcase.serialize(response.data.page),
     failureSelector: response => response.data,
     injections: [
       withPostSuccess((dispatch, response) => {

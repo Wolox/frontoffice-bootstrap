@@ -33,7 +33,7 @@ function Index({
 }) {
   useEffect(() => {
     getResource(data.endpoint, currentPage, DEFAULT_LIMIT);
-  }, []);
+  }, [currentPage]);
 
   const handlePageChange = newPage => setCurrentPage(newPage);
   const { endpoint, attributes, only } = data;
