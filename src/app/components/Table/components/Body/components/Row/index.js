@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import { any, string } from 'prop-types';
 import { Link } from 'react-router-dom';
-import ReactSVG from 'react-svg';
 import { connect } from 'react-redux';
 
 import { actionCreators as modalActions } from '~redux/modal/actions';
@@ -11,38 +10,29 @@ import { actionType, columnsType, configType } from '~components/Table/propTypes
 
 import Cell from '~components/Table/components/Cell';
 
+import Icon from '~components/Icon';
+
 import Trash from '~assets/trash.svg';
 
 import Edit from '~assets/edit.svg';
 
 import styles from '~components/Table/styles.module.scss';
 
-class ActionComponent extends Component {
-  handleDelete = () => this.props.dispatch(modalActions.toggleDeleteModal(this.props.row.id));
-
-  render() {
-    const { props } = this;
-    return (
-      <div className="row">
-        <Link
-          to={`${window.location.pathname}/${props.row.id}/edit`}
-          className={`button-primary ${styles.iconButton} m-right-2`}
-        >
-          <img className={styles.actionIcon} src={Edit} alt="edit" />
-        </Link>
-        <button onClick={this.handleDelete} type="button" className={`button-secondary ${styles.iconButton}`}>
-          <ReactSVG
-            src={Trash}
-            alt="delete"
-            beforeInjection={svg => {
-              svg.classList.add(styles.actionIcon);
-              svg.classList.add('trash-ic');
-            }}
-          />
-        </button>
-      </div>
-    );
-  }
+function ActionComponent({ dispatch, ...props }) {
+  const handleDelete = () => dispatch(modalActions.toggleDeleteModal(props.row.id));
+  return (
+    <div className="row">
+      <Link
+        to={`${window.location.pathname}/${props.row.id}/edit`}
+        className={`button-primary ${styles.iconButton} m-right-2`}
+      >
+        <img className={styles.actionIcon} src={Edit} alt="edit" />
+      </Link>
+      <button onClick={handleDelete} type="button" className={`button-secondary ${styles.iconButton}`}>
+        <Icon src={Trash} classList={[styles.actionIcon, 'trash-ic']} />
+      </button>
+    </div>
+  );
 }
 
 const ConnectedActionComponent = connect()(ActionComponent);
@@ -64,15 +54,17 @@ function Row({ action, config, columns, data, url }) {
               `item-${columns[columnName].columnProportion}`
             )}
           >
-            {!index ? (
+            {index ? (
+              CellComponent ? (
+                <CellComponent {...cellData} />
+              )
+                : cellData
+              )
+             : (
               <Link to={url} className={classNames(styles.rowLink, configStyles.rowLink)}>
-                {CellComponent ? <CellComponent {...cellData} /> : cellData}
-              </Link>
-            ) : CellComponent ? (
-              <CellComponent {...cellData} />
-            )
-              : cellData
-            }
+                 {CellComponent ? <CellComponent {...cellData} /> : cellData}
+               </Link>
+            )}
           </Cell>
         ) : null;
       })}

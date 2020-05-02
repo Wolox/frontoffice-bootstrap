@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { t } from 'i18next';
 import { connect } from 'react-redux';
@@ -63,7 +63,7 @@ class Index extends Component {
         {this.props.loading ? (
           <Spinner />
         ) : (
-          <>
+          <Fragment>
             <Table
               bodies={bodies}
               columns={columns}
@@ -78,7 +78,7 @@ class Index extends Component {
               onPageChange={this.handlePageChange}
               nextPage={nextPage}
             />
-          </>
+          </Fragment>
         )}
       </>
     );
