@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import styles from './styles.module.scss';
 
-function InputLabel({
+function Select({
   className,
   textClassName,
   dataFor,
@@ -11,32 +11,35 @@ function InputLabel({
   inputClassName,
   placeholder,
   inputId,
-  inputType,
   input,
   disabled,
-  field
+  field,
+  options
 }) {
   return (
     <div className={`column start ${className}`}>
-      <label className={`${textClassName} ${styles.inputLabel} m-bottom-1`} htmlFor={dataFor}>
+      <label className={`${textClassName} ${styles.select} m-bottom-1`} htmlFor={dataFor}>
         {label}
       </label>
-      <input
-        className={`input ${inputClassName}`}
+      <select
+        className={`select ${inputClassName}`}
         name={field.name}
         placeholder={placeholder}
         autoComplete="new-password"
         id={inputId}
-        type={field.type || inputType}
         {...input}
         disabled={disabled}
         {...field}
-      />
+      >
+        {options.map(option => (
+          <option key={option} value={option}>{option}</option>
+        ))}
+      </select>
     </div>
   );
 }
 
-InputLabel.propTypes = {
+Select.propTypes = {
   className: PropTypes.string,
   dataFor: PropTypes.string,
   disabled: PropTypes.bool,
@@ -51,11 +54,11 @@ InputLabel.propTypes = {
   textClassName: PropTypes.string
 };
 
-InputLabel.defaultProps = {
+Select.defaultProps = {
   className: '',
   inputClassName: '',
   placeholder: '',
   textClassName: ''
 };
 
-export default InputLabel;
+export default Select;

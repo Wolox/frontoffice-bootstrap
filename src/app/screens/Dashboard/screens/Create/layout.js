@@ -1,10 +1,12 @@
 import React from 'react';
 import { t } from 'i18next';
-import { Formik, Field } from 'formik';
+import { Field } from 'formik';
 
 import leftArrow from '~assets/left-arrow.svg';
 
 import Icon from '~components/Icon';
+
+import { defaultInputs } from '~constants/structure';
 
 import styles from './styles.module.scss';
 
@@ -26,7 +28,7 @@ function CreationLayout({ modelData, handleSubmit, handleCancel }) {
                 key={attribute.name}
                 className="form-field m-bottom-3"
                 {...attribute.componentAttributes}
-                component={attribute.component}
+                component={attribute.component || defaultInputs[attribute.type]}
               />
             ))}
       </div>

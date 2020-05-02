@@ -1,11 +1,20 @@
 import InputLabel from '~components/InputLabel';
 
+import Select from '~components/Select';
+
 export const actions = ['INDEX', 'SHOW', 'EDIT', 'DESTROY', 'CREATE'].reduce(
   (acc, value) => ({ ...acc, [value]: value }),
   {}
 );
 
 const only = (...params) => params.reduce((acc, value) => ({ ...acc, [value]: true }), {});
+
+export const defaultInputs = {
+  text: InputLabel,
+  number: InputLabel,
+  email: InputLabel,
+  select: Select
+};
 
 export default [
   {
@@ -14,8 +23,8 @@ export default [
     endpoint: 'products',
     only: only(actions.INDEX, actions.DESTROY, actions.SHOW, actions.EDIT, actions.CREATE),
     create: ['name', 'avatar'],
-    edit: ['name', 'avatar'],
-    show: ['name', 'avatar', 'description', 'images'],
+    edit: ['name', 'avatar', 'stock', 'status'],
+    show: ['name', 'avatar', 'description', 'status'],
     index: ['id', 'name', 'description'],
     attributes: [
       {
@@ -28,7 +37,6 @@ export default [
         type: 'text',
         placeholder: 'Product name',
         columnProportion: 1,
-        component: InputLabel,
         componentAttributes: {
           label: 'name',
           name: 'name',
@@ -42,7 +50,6 @@ export default [
         type: 'text',
         placeholder: 'Product description',
         columnProportion: 3,
-        component: InputLabel,
         componentAttributes: {
           label: 'avatar',
           name: 'avatar',
@@ -56,13 +63,33 @@ export default [
         type: 'text',
         placeholder: 'Product description',
         columnProportion: 3,
-        component: InputLabel,
         componentAttributes: {
           label: 'avatar',
           name: 'avatar',
           inputId: 'avatar',
           dataFor: 'avatar',
           inputType: 'text'
+        }
+      },
+      {
+        name: 'stock',
+        type: 'number',
+        placeholder: 'Product description',
+        columnProportion: 3,
+        componentAttributes: {
+          label: 'stock',
+          inputType: 'number'
+        }
+      },
+      {
+        name: 'status',
+        type: 'select',
+        placeholder: 'Product description',
+        columnProportion: 3,
+        componentAttributes: {
+          label: 'status',
+          inputType: 'select',
+          options: ['CREATED', 'PENDING', 'DELIVERED', 'CLOSED']
         }
       },
       {
@@ -81,7 +108,6 @@ export default [
       {
         name: 'name',
         type: 'text',
-        component: InputLabel,
         componentAttributes: {
           label: 'name',
           name: 'name',
