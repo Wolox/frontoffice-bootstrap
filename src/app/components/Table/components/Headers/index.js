@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import { bool } from 'prop-types';
 
 import { columnsType, configType } from '~components/Table/propTypes';
 
@@ -36,7 +35,6 @@ function Headers({ config, headers }) {
 
 Headers.propTypes = {
   config: configType,
-  hasActions: bool,
   headers: columnsType
 };
 

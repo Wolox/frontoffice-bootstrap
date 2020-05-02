@@ -5,7 +5,7 @@ import { arrayOf, bool, number, string } from 'prop-types';
 import Headers from './components/Headers';
 import Body from './components/Body';
 import styles from './styles.module.scss';
-import { bodyType, configType, columnsType, emptyMessageType } from './propTypes';
+import { bodyType, configType, columnsType } from './propTypes';
 
 function Table({ bodies, className, columns, config, error, errorMessage, loading }) {
   const { styles: configStyles = {} } = config;
