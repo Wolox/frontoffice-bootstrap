@@ -14,28 +14,28 @@ import Navbar from '~components/Navbar';
 
 import { push } from 'connected-react-router';
 
-import Routes from '../../../constants/routes';
+import Routes from '~constants/routes';
 
 import styles from './styles.module.scss';
 
-const List = lazy(() => import('./screens/List'));
+const Index = lazy(() => import('./screens/Index'));
 const Detail = lazy(() => import('./screens/Detail'));
 const Create = lazy(() => import('./screens/Create'));
 const Edit = lazy(() => import('./screens/Edit'));
 
 const GenericRouter = () =>
   structure.map(model => (
-    <Switch key={model.endpoint}>
-      <Route exact path={`/${model.endpoint}`} component={List} />
-      <Route exact path={`/${model.endpoint}/new`} component={Create} />
-      <Route exact path={`/${model.endpoint}/:id`} component={Detail} />
-      <Route exact path={`/${model.endpoint}/:id/edit`} component={Edit} />
+    <Switch key={model.route}>
+      <Route exact path={`/${model.route}`} component={Index} />
+      {(!model.only || model.only.CREATE) && <Route exact path={`/${model.route}/new`} component={Create} />}
+      {(!model.only || model.only.SHOW) && <Route exact path={`/${model.route}/:id`} component={Detail} />}
+      {(!model.only || model.only.EDIT) && <Route exact path={`/${model.route}/:id/edit`} component={Edit} />}
     </Switch>
   ));
 
 function Dashboard({ cancelModal, deleteModal, ...props }) {
   if (window.location.pathname === Routes.HOME) {
-    props.dispatch(push(`/${structure[0].endpoint}`));
+    props.dispatch(push(`/${structure[0].route}`));
   }
 
   return (
@@ -48,7 +48,7 @@ function Dashboard({ cancelModal, deleteModal, ...props }) {
         <main className={`${styles.container} column`}>
           <Switch>
             <GenericRouter />
-            <Route exact path={Routes.HOME} component={List} />
+            <Route exact path={Routes.HOME} component={Index} />
             <Route component={<Redirect to={Routes.HOME} />} />
           </Switch>
         </main>

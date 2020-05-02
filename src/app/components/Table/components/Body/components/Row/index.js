@@ -11,8 +11,6 @@ import { actionType, columnsType, configType } from '~components/Table/propTypes
 
 import Cell from '~components/Table/components/Cell';
 
-import Routes from '~constants/routes';
-
 import Trash from '~assets/trash.svg';
 
 import Edit from '~assets/edit.svg';
@@ -20,9 +18,7 @@ import Edit from '~assets/edit.svg';
 import styles from '~components/Table/styles.module.scss';
 
 class ActionComponent extends Component {
-  handleDelete = () => {
-    this.props.dispatch(modalActions.toggleDeleteModal(this.props.row.id));
-  };
+  handleDelete = () => this.props.dispatch(modalActions.toggleDeleteModal(this.props.row.id));
 
   render() {
     const { props } = this;
@@ -56,37 +52,36 @@ function Row({ action, config, columns, data, url }) {
   const { styles: configStyles = {} } = config;
   return (
     <div className={classNames(styles.rowContainer, configStyles.rowContainer)}>
-      <Link
-        to={url}
-        className={classNames('middle', styles.rowLink, configStyles.rowLink, {
-          'm-right-2': ConnectedActionComponent
-        })}
+      {Object.keys(columns).map((columnName, index) => {
+        const { component: CellComponent, parser: dataParser } = columns[columnName].cell || {};
+        const cellData = dataParser?.(data[columnName]) || data[columnName] || null;
+        return cellData ? (
+          <Cell
+            key={`${data.id}-${columnName}`}
+            className={classNames(
+              styles.cell,
+              configStyles.cell,
+              `item-${columns[columnName].columnProportion}`
+            )}
+          >
+            {!index ? (
+              <Link to={url} className={classNames(styles.rowLink, configStyles.rowLink)}>
+                {CellComponent ? <CellComponent {...cellData} /> : cellData}
+              </Link>
+            ) : CellComponent ? (
+              <CellComponent {...cellData} />
+            )
+              : cellData
+            }
+          </Cell>
+        ) : null;
+      })}
+      <Cell
+        key={`${data.id}-actions`}
+        className={classNames(styles.cell, configStyles.cell, styles.actionCell)}
       >
-        {Object.keys(columns).map(columnName => {
-          const { component: CellComponent, parser: dataParser } = columns[columnName].cell || {};
-          const cellData = dataParser?.(data[columnName]) || data[columnName] || null;
-          return cellData ? (
-            <Cell
-              key={`${data.id}-${columnName}`}
-              className={classNames(
-                styles.cell,
-                configStyles.cell,
-                `item-${columns[columnName].columnProportion}`
-              )}
-            >
-              {CellComponent ? <CellComponent {...cellData} /> : cellData}
-            </Cell>
-          ) : null;
-        })}
-      </Link>
-      {ConnectedActionComponent ? (
-        <Cell
-          key={`${data.id}-actions`}
-          className={classNames(styles.cell, configStyles.cell, styles.actionCell)}
-        >
-          {ConnectedActionComponent ? <ConnectedActionComponent row={data} /> : null}
-        </Cell>
-      ) : null}
+        <ConnectedActionComponent row={data} />
+      </Cell>
     </div>
   );
 }

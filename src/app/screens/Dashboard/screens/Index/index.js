@@ -14,25 +14,27 @@ import structure from '~constants/structure';
 
 import Paginator from '~components/Paginator';
 
+import Spinner from '~components/Spinner';
+
 import Table from '~components/Table';
 
 import { DEFAULT_LIMIT } from './constants';
 import { parseList, getColumns } from './utils';
 
-class List extends Component {
+class Index extends Component {
   state = {
     data: {}
   };
 
   componentDidMount() {
     this.setState({
-      data: structure.find(model => this.props.match.path.slice(1) === model.endpoint)
+      data: structure.find(model => this.props.match.path.slice(1) === model.route)
     });
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.data !== this.state.data) {
-      this.props.getResource(this.state.data.endpoint, this.props.currentPage, DEFAULT_LIMIT);
+      this.props.getResource(this.state.data.route, this.props.currentPage, DEFAULT_LIMIT);
     }
   }
 
@@ -40,24 +42,26 @@ class List extends Component {
 
   render() {
     const { list, listError, loading, currentPage, totalPages, nextPage } = this.props;
-    const { endpoint, attributes } = this.state?.data;
+    const { endpoint, attributes, only } = this.state?.data;
 
-    const columns = getColumns(attributes);
+    const columns = getColumns(
+      attributes?.filter(
+        attribute => !this.state.data.index || this.state.data.index.includes(attribute.name)
+      )
+    );
     const bodies = parseList(list, endpoint);
     return (
       <>
         <div className="row space-between middle form-header">
           <h1 className="title2">{t('List:componentList', { component: this.state.data.name })}</h1>
-          <Link to={`${this.props.match.path}/new`} className={`${styles.link} button-primary`}>
-            {t('List:create')}
-          </Link>
+          {(!only || only.CREATE) && (
+            <Link to={`${this.props.match.path}/new`} className={`${styles.link} button-primary`}>
+              {t('List:create')}
+            </Link>
+          )}
         </div>
         {this.props.loading ? (
-          <div className="ball-triangle-path">
-            <div />
-            <div />
-            <div />
-          </div>
+          <Spinner />
         ) : (
           <>
             <Table
@@ -81,7 +85,7 @@ class List extends Component {
   }
 }
 
-List.propTypes = {
+Index.propTypes = {
   getResource: func.isRequired,
   setCurrentPage: func.isRequired,
   currentPage: number,
@@ -111,4 +115,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(List);
+)(Index);

@@ -14,7 +14,7 @@ function Sidebar() {
       {structure.map(model => (
         <NavLink
           key={model.name}
-          to={`/${model.endpoint}`}
+          to={`/${model.route}`}
           className={styles.modelLink}
           activeClassName={styles.activeModel}
         >
