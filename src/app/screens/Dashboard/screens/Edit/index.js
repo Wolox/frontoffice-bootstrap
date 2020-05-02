@@ -9,6 +9,8 @@ import structure from '~constants/structure';
 
 import Spinner from '~components/Spinner';
 
+import { Formik } from 'formik';
+
 import EditContainer from './layout';
 
 function Edit({ resource, dispatch, match, loading }) {
@@ -37,16 +39,15 @@ function Edit({ resource, dispatch, match, loading }) {
   const onCancel = () => dispatch(modalActions.toggleCancelModal());
 
   const onDelete = () => dispatch(modalActions.toggleDeleteModal());
-
   return loading ? (
     <Spinner />
   ) : (
-    <EditContainer
-      modelData={data}
+    <Formik
       onSubmit={handleSubmit}
       initialValues={resource}
-      handleCancel={onCancel}
-      handleDelete={onDelete}
+      render={props => (
+        <EditContainer {...props} modelData={data} handleCancel={onCancel} handleDelete={onDelete} />
+      )}
     />
   );
 }
