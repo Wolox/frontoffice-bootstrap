@@ -11,16 +11,18 @@ function Sidebar() {
   return (
     <aside className={styles.sidebarContainer}>
       <img src={logo} alt="logo" className={`${styles.logo} m-top-1 m-bottom-1`} />
-      {structure.map(model => (
-        <NavLink
-          key={model.name}
-          to={`/${model.route}`}
-          className={styles.modelLink}
-          activeClassName={styles.activeModel}
-        >
-          {model.name.charAt(0).toUpperCase() + model.name.slice(1)}
-        </NavLink>
-      ))}
+      {structure
+        .filter(model => !model.only || model.only.INDEX)
+        .map(model => (
+          <NavLink
+            key={model.name}
+            to={`/${model.route}`}
+            className={styles.modelLink}
+            activeClassName={styles.activeModel}
+          >
+            {model.name.charAt(0).toUpperCase() + model.name.slice(1)}
+          </NavLink>
+        ))}
     </aside>
   );
 }

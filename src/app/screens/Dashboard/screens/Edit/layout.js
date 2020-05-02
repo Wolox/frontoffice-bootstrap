@@ -1,11 +1,10 @@
 import React from 'react';
-import { Fields, reduxForm } from 'redux-form';
 import { t } from 'i18next';
-import ReactSVG from 'react-svg';
+import { Formik, Field } from 'formik';
 
 import leftArrow from '~assets/left-arrow.svg';
 
-import { Formik, Field } from 'formik';
+import Icon from '~components/Icon';
 
 import styles from './styles.module.scss';
 
@@ -15,12 +14,7 @@ function EditLayout({ modelData = {}, onSubmit, handleCancel, handleDelete, init
       <form className={styles.container}>
         <div className="row middle form-header">
           <button onClick={handleCancel} type="button" className="back-button m-right-2">
-            <ReactSVG
-              src={leftArrow}
-              beforeInjection={svg => {
-                svg.classList.add('back-ic');
-              }}
-            />
+            <Icon src={leftArrow} classList={['back-id']} />
           </button>
           <h1 className="title2 capitalize m-right-auto">
             {t('Edit:resourceEdition', { resource: modelData.name })}

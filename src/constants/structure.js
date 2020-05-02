@@ -1,6 +1,6 @@
 import InputLabel from '~components/InputLabel';
 
-const actions = ['INDEX', 'SHOW', 'EDIT', 'DESTROY', 'CREATE'].reduce(
+export const actions = ['INDEX', 'SHOW', 'EDIT', 'DESTROY', 'CREATE'].reduce(
   (acc, value) => ({ ...acc, [value]: value }),
   {}
 );
@@ -15,9 +15,8 @@ export default [
     only: only(actions.INDEX, actions.DESTROY, actions.SHOW, actions.EDIT, actions.CREATE),
     create: ['name', 'avatar'],
     edit: ['name', 'avatar'],
-    show: ['name', 'avatar', 'description'],
+    show: ['name', 'avatar', 'description', 'images'],
     index: ['id', 'name', 'description'],
-    actions: [],
     attributes: [
       {
         name: 'id',
@@ -65,14 +64,19 @@ export default [
           dataFor: 'avatar',
           inputType: 'text'
         }
+      },
+      {
+        name: 'images',
+        type: 'has_many',
+        placeholder: 'Images'
       }
     ]
   },
   {
-    name: 'matches',
-    route: 'matches',
-    endpoint: 'matches',
-    actions: [],
+    name: 'images',
+    route: 'images',
+    only: only(actions.SHOW),
+    endpoint: 'images',
     attributes: [
       {
         name: 'name',
