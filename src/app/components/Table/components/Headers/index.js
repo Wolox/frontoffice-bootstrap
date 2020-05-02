@@ -27,7 +27,9 @@ function Headers({ config, headers }) {
       <Cell
         key="action-header"
         className={classNames(styles.actionHeader, styles.headerCell, configStyles.headerCell)}
-      />
+      >
+        Actions
+      </Cell>
     </div>
   );
 }

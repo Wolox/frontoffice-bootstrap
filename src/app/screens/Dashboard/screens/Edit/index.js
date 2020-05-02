@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { actionCreators as modalActions } from '~redux/modal/actions';
@@ -7,61 +7,48 @@ import { actionCreators as resourceActions } from '~redux/resource/actions';
 
 import structure from '~constants/structure';
 
+import Spinner from '~components/Spinner';
+
 import EditContainer from './layout';
 
-class Edit extends Component {
-  state = {
-    data: {}
-  };
-
-  componentDidMount() {
-    if (!Object.keys(this.props.resource).length) {
-      this.props.dispatch(
+function Edit({ resource, dispatch, match, loading }) {
+  const [data, setData] = useState({});
+  useEffect(() => {
+    if (!Object.keys(resource).length) {
+      dispatch(
         resourceActions.getResourceDetail({
-          resource: this.props.match.path.slice(1).split('/')[0],
-          id: this.props.match.params.id
+          resource: match.path.slice(1).split('/')[0],
+          id: match.params.id
         })
       );
     }
-    this.setState({
-      data: structure.find(model => this.props.match.path.slice(1).split('/')[0] === model.endpoint)
-    });
-  }
+    setData(structure.find(model => match.path.slice(1).split('/')[0] === model.endpoint));
+  }, []);
 
-  handleSubmit = body => {
-    this.props.dispatch(
+  const handleSubmit = body => {
+    dispatch(
       resourceActions.editResource({
-        resource: this.state.data.name,
-        body: { ...body, id: this.props.match.url.slice(1).split('/')[1] }
+        resource: data.name,
+        body: { ...body, id: match.url.slice(1).split('/')[1] }
       })
     );
   };
 
-  onCancel = () => {
-    this.props.dispatch(modalActions.toggleCancelModal());
-  };
+  const onCancel = () => dispatch(modalActions.toggleCancelModal());
 
-  onDelete = () => {
-    this.props.dispatch(modalActions.toggleDeleteModal());
-  };
+  const onDelete = () => dispatch(modalActions.toggleDeleteModal());
 
-  render() {
-    return this.props.loading ? (
-      <div className="ball-triangle-path">
-        <div />
-        <div />
-        <div />
-      </div>
-    ) : (
-      <EditContainer
-        modelData={this.state.data}
-        onSubmit={this.handleSubmit}
-        initialValues={this.props.resource}
-        handleCancel={this.onCancel}
-        handleDelete={this.onDelete}
-      />
-    );
-  }
+  return loading ? (
+    <Spinner />
+  ) : (
+    <EditContainer
+      modelData={data}
+      onSubmit={handleSubmit}
+      initialValues={resource}
+      handleCancel={onCancel}
+      handleDelete={onDelete}
+    />
+  );
 }
 
 const mapStateToProps = store => ({

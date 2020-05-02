@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import structure from '~constants/structure';
@@ -9,33 +9,16 @@ import { actionCreators as resourceActions } from '~redux/resource/actions';
 
 import CreationContainer from './layout';
 
-class Create extends Component {
-  state = {
-    data: {}
-  };
+function Create({ dispatch, match }) {
+  const [data, setData] = useState({});
+  useEffect(() => {
+    setData(structure.find(model => match.path.split('/')[1] === model.route));
+  }, []);
 
-  componentDidMount() {
-    this.setState({
-      data: structure.find(model => this.props.match.path.split('/')[1] === model.endpoint)
-    });
-  }
+  const handleSubmit = body => dispatch(resourceActions.createResource({ resource: data.name, body }));
+  const onCancel = () => dispatch(modalActions.toggleCancelModal());
 
-  handleSubmit = body => {
-    this.props.dispatch(resourceActions.createResource({ resource: this.state.data.name, body }));
-  };
-
-  onCancel = () => {
-    this.props.dispatch(modalActions.toggleCancelModal());
-  };
-
-  render() {
-    return (
-      <CreationContainer
-        modelData={this.state.data}
-        onSubmit={this.handleSubmit}
-        handleCancel={this.onCancel}
-      />
-    );
-  }
+  return <CreationContainer modelData={data} onSubmit={handleSubmit} handleCancel={onCancel} />;
 }
+
 export default connect()(Create);
