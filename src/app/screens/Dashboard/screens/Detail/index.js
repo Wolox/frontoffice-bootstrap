@@ -1,10 +1,7 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { t } from 'i18next';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import ReactSVG from 'react-svg';
-
-import structure from '~constants/structure';
 
 import Spinner from '~components/Spinner';
 
@@ -22,12 +19,10 @@ import { push } from 'connected-react-router';
 
 import styles from './styles.module.scss';
 
-function Detail({ dispatch, match, loading, resource }) {
-  const [data, setData] = useState({});
+function Detail({ dispatch, match, loading, resource, data }) {
   useEffect(() => {
-    const resourceName = match.path.split('/')[1];
+    const resourceName = data.endpoint;
     dispatch(resourceActions.getResourceDetail({ resource: resourceName, id: match.params.id }));
-    setData(structure.find(model => resourceName === model.route));
   }, []);
 
   const goBack = () => dispatch(push(Routes.HOME));

@@ -26,10 +26,16 @@ const Edit = lazy(() => import('./screens/Edit'));
 const GenericRouter = () =>
   structure.map(model => (
     <Switch key={model.route}>
-      <Route exact path={`/${model.route}`} component={Index} />
-      {(!model.only || model.only.CREATE) && <Route exact path={`/${model.route}/new`} component={Create} />}
-      {(!model.only || model.only.SHOW) && <Route exact path={`/${model.route}/:id`} component={Detail} />}
-      {(!model.only || model.only.EDIT) && <Route exact path={`/${model.route}/:id/edit`} component={Edit} />}
+      <Route exact path={`/${model.route}`} render={props => <Index {...props} data={model} />} />
+      {(!model.only || model.only.CREATE) && (
+        <Route exact path={`/${model.route}/new`} render={props => <Create {...props} data={model} />} />
+      )}
+      {(!model.only || model.only.SHOW) && (
+        <Route exact path={`/${model.route}/:id`} render={props => <Detail {...props} data={model} />} />
+      )}
+      {(!model.only || model.only.EDIT) && (
+        <Route exact path={`/${model.route}/:id/edit`} render={props => <Edit {...props} data={model} />} />
+      )}
     </Switch>
   ));
 

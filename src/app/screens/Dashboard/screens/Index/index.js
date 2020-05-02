@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { t } from 'i18next';
 import { connect } from 'react-redux';
@@ -9,8 +9,6 @@ import styles from './styles.module.scss';
 import { actionCreators as resourceActions } from '~redux/resource/actions';
 
 import { actionCreators as paginatorActions } from '~redux/Paginator/actions';
-
-import structure from '~constants/structure';
 
 import Paginator from '~components/Paginator';
 
@@ -30,17 +28,12 @@ function Index({
   currentPage,
   totalPages,
   nextPage,
-  setCurrentPage
+  setCurrentPage,
+  data
 }) {
-  const [data, setData] = useState({});
-
-  useEffect(() => {
-    setData(structure.find(model => match.path.slice(1) === model.route));
-  }, []);
-
   useEffect(() => {
     getResource(data.endpoint, currentPage, DEFAULT_LIMIT);
-  }, [data]);
+  }, []);
 
   const handlePageChange = newPage => setCurrentPage(newPage);
   const { endpoint, attributes, only } = data;
