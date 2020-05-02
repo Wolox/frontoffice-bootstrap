@@ -22,7 +22,7 @@ export default [
     route: 'products',
     endpoint: 'products',
     only: only(actions.INDEX, actions.DESTROY, actions.SHOW, actions.EDIT, actions.CREATE),
-    create: ['name', 'avatar'],
+    create: ['id'],
     edit: ['name', 'avatar', 'stock', 'status'],
     show: ['name', 'avatar', 'description', 'status'],
     index: ['id', 'name', 'description'],
@@ -52,9 +52,6 @@ export default [
         columnProportion: 3,
         componentAttributes: {
           label: 'avatar',
-          name: 'avatar',
-          inputId: 'avatar',
-          dataFor: 'avatar',
           inputType: 'text'
         }
       },
@@ -65,9 +62,6 @@ export default [
         columnProportion: 3,
         componentAttributes: {
           label: 'avatar',
-          name: 'avatar',
-          inputId: 'avatar',
-          dataFor: 'avatar',
           inputType: 'text'
         }
       },

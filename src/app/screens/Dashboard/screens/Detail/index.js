@@ -58,7 +58,9 @@ function Detail({ dispatch, match, loading, resource, data }) {
           )
           .map(attribute => (
             <div className={`row ${styles.detailRow}`} key={attribute.name}>
-              <span className={`bold m-right-2 capitalize ${styles.detailFieldKey}`}>{t(`${data.name}:${attribute.name}_attribute`)}:</span>
+              <span className={`bold m-right-2 capitalize ${styles.detailFieldKey}`}>
+                {t(`${data.name}:${attribute.name}_attribute`)}:
+              </span>
               <span className={styles.detailFieldValue}>{resource[attribute.name]}</span>
             </div>
           ))}

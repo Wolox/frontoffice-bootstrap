@@ -31,13 +31,13 @@ function EditLayout({ modelData = {}, handleSubmit, handleCancel, handleDelete }
             <Field
               {...attribute.componentAttributes}
               key={attribute.name}
-              component={attribute.component || defaultInputs[attribute.type]}
+              component={attribute.component || defaultInputs[attribute.type]}
               className="form-field m-bottom-3"
               name={attribute.name}
-              label={t(`products:${attribute.name}_attribute`)}
+              label={t(`${modelData.name}:${attribute.name}_attribute`)}
               type={attribute.type}
-            />)
-          )}
+            />
+          ))}
       </div>
       <div className="row form-actions">
         <button type="submit" className="m-right-2 button-primary">

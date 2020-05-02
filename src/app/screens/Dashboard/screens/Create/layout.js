@@ -25,10 +25,13 @@ function CreationLayout({ modelData, handleSubmit, handleCancel }) {
             .filter(attribute => !modelData.create || modelData.create.includes(attribute.name))
             .map(attribute => (
               <Field
-                key={attribute.name}
-                className="form-field m-bottom-3"
                 {...attribute.componentAttributes}
+                key={attribute.name}
                 component={attribute.component || defaultInputs[attribute.type]}
+                className="form-field m-bottom-3"
+                name="id"
+                label={t(`${modelData.name}:${attribute.name}_attribute`)}
+                type={attribute.type}
               />
             ))}
       </div>

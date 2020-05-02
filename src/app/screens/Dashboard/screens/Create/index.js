@@ -11,10 +11,10 @@ import CreationContainer from './layout';
 function Create({ dispatch, data }) {
   const handleSubmit = body => dispatch(resourceActions.createResource({ resource: data.name, body }));
   const onCancel = () => dispatch(modalActions.toggleCancelModal());
-
   return (
     <Formik
       onSubmit={handleSubmit}
+      initialValues={{}}
       render={props => <CreationContainer {...props} modelData={data} handleCancel={onCancel} />}
     />
   );
