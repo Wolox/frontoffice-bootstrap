@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
+import { t } from 'i18next';
 
 import structure from '~constants/structure';
 
@@ -24,7 +25,7 @@ function Sidebar() {
             className={styles.modelLink}
             activeClassName={styles.activeModel}
           >
-            {model.name}
+            {t(`${model.name}:model`)}
           </NavLink>
         ))}
     </aside>

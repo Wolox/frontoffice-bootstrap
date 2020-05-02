@@ -19,6 +19,7 @@ module.exports = {
    },
    rules: {
     'react/prop-types': ['off'],
-    'react/jsx-no-bind': ['off']
+    'react/jsx-no-bind': ['off'],
+    'camelcase': ['off']
    }
 };

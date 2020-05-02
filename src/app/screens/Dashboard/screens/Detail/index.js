@@ -38,7 +38,7 @@ function Detail({ dispatch, match, loading, resource, data }) {
           <Icon src={leftArrow} classList={['back-ic']} />
         </button>
         <h1 className="title2 capitalize m-right-auto">
-          {t('Detail:resourceDetail', { resource: data.name })}
+          {t('Detail:resourceDetail', { resource: t(`${data.name}:model`) })}
         </h1>
         {(!data.only || data.only?.DESTROY) && (
           <button type="button" className="m-right-2 button-secondary m-bottom-1" onClick={handleDelete}>
@@ -58,7 +58,7 @@ function Detail({ dispatch, match, loading, resource, data }) {
           )
           .map(attribute => (
             <div className={`row ${styles.detailRow}`} key={attribute.name}>
-              <span className={`bold m-right-2 capitalize ${styles.detailFieldKey}`}>{attribute.name}:</span>
+              <span className={`bold m-right-2 capitalize ${styles.detailFieldKey}`}>{t(`${data.name}:${attribute.name}_attribute`)}:</span>
               <span className={styles.detailFieldValue}>{resource[attribute.name]}</span>
             </div>
           ))}

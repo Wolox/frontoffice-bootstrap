@@ -10,7 +10,7 @@ import { defaultInputs } from '~constants/structure';
 
 import styles from './styles.module.scss';
 
-function EditLayout({ modelData = {}, handleSubmit, handleCancel, handleDelete, initialValues }) {
+function EditLayout({ modelData = {}, handleSubmit, handleCancel, handleDelete }) {
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
       <div className="row middle form-header">
@@ -18,7 +18,7 @@ function EditLayout({ modelData = {}, handleSubmit, handleCancel, handleDelete, 
           <Icon src={leftArrow} classList={['back-id']} />
         </button>
         <h1 className="title2 capitalize m-right-auto">
-          {t('Edit:resourceEdition', { resource: modelData.name })}
+          {t('Edit:resourceEdition', { resource: t(`${modelData.name}:model`) })}
         </h1>
         <button type="button" className="button-secondary" onClick={handleDelete}>
           {t('Create:delete')}
@@ -34,6 +34,7 @@ function EditLayout({ modelData = {}, handleSubmit, handleCancel, handleDelete, 
               component={attribute.component || defaultInputs[attribute.type]}
               className="form-field m-bottom-3"
               name={attribute.name}
+              label={t(`products:${attribute.name}_attribute`)}
               type={attribute.type}
             />)
           )}
