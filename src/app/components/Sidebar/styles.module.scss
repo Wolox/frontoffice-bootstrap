@@ -21,6 +21,10 @@
     background: rgba($primary-color, 0.05);
   }
 
+  &::first-letter {
+    text-transform: uppercase;
+  }
+
   &.active-model {
     color: $primary-color;
     font-weight: 400;

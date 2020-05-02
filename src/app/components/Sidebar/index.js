@@ -20,7 +20,7 @@ function Sidebar() {
             className={styles.modelLink}
             activeClassName={styles.activeModel}
           >
-            {model.name.charAt(0).toUpperCase() + model.name.slice(1)}
+            {model.name}
           </NavLink>
         ))}
     </aside>

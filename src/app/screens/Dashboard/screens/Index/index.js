@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { t } from 'i18next';
 import { connect } from 'react-redux';
@@ -21,68 +21,66 @@ import Table from '~components/Table';
 import { DEFAULT_LIMIT } from './constants';
 import { parseList, getColumns } from './utils';
 
-class Index extends Component {
-  state = {
-    data: {}
-  };
+function Index({
+  match,
+  getResource,
+  list,
+  listError,
+  loading,
+  currentPage,
+  totalPages,
+  nextPage,
+  setCurrentPage
+}) {
+  const [data, setData] = useState({});
 
-  componentDidMount() {
-    this.setState({
-      data: structure.find(model => this.props.match.path.slice(1) === model.route)
-    });
-  }
+  useEffect(() => {
+    setData(structure.find(model => match.path.slice(1) === model.route));
+  }, []);
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.data !== this.state.data) {
-      this.props.getResource(this.state.data.route, this.props.currentPage, DEFAULT_LIMIT);
-    }
-  }
+  useEffect(() => {
+    getResource(data.endpoint, currentPage, DEFAULT_LIMIT);
+  }, [data]);
 
-  handlePageChange = newPage => this.props.setCurrentPage(newPage);
+  const handlePageChange = newPage => setCurrentPage(newPage);
+  const { endpoint, attributes, only } = data;
 
-  render() {
-    const { list, listError, loading, currentPage, totalPages, nextPage } = this.props;
-    const { endpoint, attributes, only } = this.state?.data;
-
-    const columns = getColumns(
-      attributes?.filter(
-        attribute => !this.state.data.index || this.state.data.index.includes(attribute.name)
-      )
-    );
-    const bodies = parseList(list, endpoint);
-    return (
-      <>
-        <div className="row space-between middle form-header">
-          <h1 className="title2">{t('List:componentList', { component: this.state.data.name })}</h1>
-          {(!only || only.CREATE) && (
-            <Link to={`${this.props.match.path}/new`} className={`${styles.link} button-primary`}>
-              {t('List:create')}
-            </Link>
-          )}
-        </div>
-        {this.props.loading ? (
-          <Spinner />
-        ) : (
-          <Fragment>
-            <Table
-              bodies={bodies}
-              columns={columns}
-              error={listError}
-              errorMessage={t('Table:errorData')}
-              loading={loading}
-              config={{ styles: { headers: styles.headers } }}
-            />
-            <Paginator
-              currentPage={currentPage}
-              totalPages={totalPages}
-              onPageChange={this.handlePageChange}
-              nextPage={nextPage}
-            />
-          </Fragment>
+  const columns = getColumns(
+    attributes?.filter(attribute => !data.index || data.index.includes(attribute.name))
+  );
+  const bodies = parseList(list, endpoint);
+  return (
+    <Fragment>
+      <div className="row space-between middle form-header">
+        <h1 className="title2">{t('List:componentList', { component: data.name })}</h1>
+        {(!only || only.CREATE) && (
+          <Link to={`${match.path}/new`} className={`${styles.link} button-primary`}>
+            {t('List:create')}
+          </Link>
         )}
-      </>
-    );
-  }
+      </div>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <Fragment>
+          <Table
+            bodies={bodies}
+            columns={columns}
+            error={listError}
+            errorMessage={t('Table:errorData')}
+            loading={loading}
+            config={{ styles: { headers: styles.headers } }}
+          />
+          <Paginator
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+            nextPage={nextPage}
+          />
+        </Fragment>
+      )}
+    </Fragment>
+  );
 }
 
 Index.propTypes = {
