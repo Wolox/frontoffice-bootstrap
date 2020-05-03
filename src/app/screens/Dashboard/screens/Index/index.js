@@ -5,19 +5,14 @@ import { connect } from 'react-redux';
 import { arrayOf, bool, any, number, func } from 'prop-types';
 
 import styles from './styles.module.scss';
-
-import { actionCreators as resourceActions } from '~redux/resource/actions';
-
-import { actionCreators as paginatorActions } from '~redux/Paginator/actions';
-
-import Paginator from '~components/Paginator';
-
-import Spinner from '~components/Spinner';
-
-import Table from '~components/Table';
-
 import { DEFAULT_LIMIT } from './constants';
 import { parseList, getColumns } from './utils';
+
+import { actionCreators as resourceActions } from '~redux/resource/actions';
+import { actionCreators as paginatorActions } from '~redux/Paginator/actions';
+import Paginator from '~components/Paginator';
+import Spinner from '~components/Spinner';
+import Table from '~components/Table';
 
 function Index({
   match,
@@ -103,7 +98,4 @@ const mapDispatchToProps = dispatch => ({
   setCurrentPage: newPage => dispatch(paginatorActions.setCurrentPage(newPage))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Index);
+export default connect(mapStateToProps, mapDispatchToProps)(Index);

@@ -2,22 +2,16 @@ import React, { useEffect, Fragment } from 'react';
 import { t } from 'i18next';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-
-import Spinner from '~components/Spinner';
-
-import Icon from '~components/Icon';
-
-import Routes from '~constants/routes';
-
-import leftArrow from '~assets/left-arrow.svg';
-
-import { actionCreators as modalActions } from '~redux/modal/actions';
-
-import { actionCreators as resourceActions } from '~redux/resource/actions';
-
 import { push } from 'connected-react-router';
 
 import styles from './styles.module.scss';
+
+import Spinner from '~components/Spinner';
+import Icon from '~components/Icon';
+import Routes from '~constants/routes';
+import leftArrow from '~assets/left-arrow.svg';
+import { actionCreators as modalActions } from '~redux/modal/actions';
+import { actionCreators as resourceActions } from '~redux/resource/actions';
 
 function Detail({ dispatch, match, loading, resource, data }) {
   useEffect(() => {
@@ -61,7 +55,9 @@ function Detail({ dispatch, match, loading, resource, data }) {
               <span className={`bold m-right-2 capitalize ${styles.detailFieldKey}`}>
                 {t(`${data.name}:${attribute.name}_attribute`)}:
               </span>
-              <span className={styles.detailFieldValue}>{resource[attribute.name]}</span>
+              <span className={styles.detailFieldValue}>
+                {attribute.format?.(resource[attribute.name]) || resource[attribute.name]}
+              </span>
             </div>
           ))}
       </div>

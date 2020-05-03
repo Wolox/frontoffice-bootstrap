@@ -2,11 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import icLogout from '~assets/ic_logout.svg';
-
-import Icon from '~components/Icon';
-
 import styles from './styles.module.scss';
+
+import icLogout from '~assets/ic_logout.svg';
+import Icon from '~components/Icon';
 
 function Navbar({ currentUser = { name: 'Jorge' } }) {
   return (

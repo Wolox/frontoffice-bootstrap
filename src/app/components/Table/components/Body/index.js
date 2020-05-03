@@ -2,11 +2,10 @@ import React from 'react';
 import classNames from 'classnames';
 import { arrayOf, string } from 'prop-types';
 
-import { columnsType, configType, rowType } from '~components/Table/propTypes';
-
-import styles from '~components/Table/styles.module.scss';
-
 import Row from './components/Row';
+
+import { columnsType, configType, rowType } from '~components/Table/propTypes';
+import styles from '~components/Table/styles.module.scss';
 
 function Body({ columns, config, title, rows, emptyBodyMessage }) {
   const { styles: configStyles = {} } = config;

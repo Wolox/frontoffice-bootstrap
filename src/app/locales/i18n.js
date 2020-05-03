@@ -7,5 +7,6 @@ i18next.addResources('es', 'products', {
   avatar_attribute: 'Avatar',
   description_attribute: 'Descripción',
   status_attribute: 'Estado',
+  date_attribute: 'Fecha',
   stock_attribute: 'Cantidad de unidades'
 });

@@ -2,9 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { columnsType, configType } from '~components/Table/propTypes';
-
 import Cell from '~components/Table/components/Cell';
-
 import styles from '~components/Table/styles.module.scss';
 
 function Headers({ config, headers }) {

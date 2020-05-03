@@ -5,15 +5,12 @@ import { t } from 'i18next';
 
 import { history } from '../store';
 
-import { defaultCamelcase } from '~serializer/defaultSerializer';
-
-import * as ConectorService from '~services/ConectorService';
-
-import { actionCreators as paginatorActions } from '~redux/Paginator/actions';
-
-import Routes from '~constants/routes';
-
 import { formatPaging } from './utils';
+
+import { defaultCamelcase } from '~serializer/defaultSerializer';
+import * as ConectorService from '~services/ConectorService';
+import { actionCreators as paginatorActions } from '~redux/Paginator/actions';
+import Routes from '~constants/routes';
 
 export const actions = createTypes(
   completeTypes(

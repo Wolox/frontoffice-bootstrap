@@ -2,13 +2,11 @@ import React from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { t } from 'i18next';
 
-import structure from '~constants/structure';
-
-import logo from '~assets/logo-white.png';
-
-import Routes from '~constants/routes';
-
 import styles from './styles.module.scss';
+
+import structure from '~constants/structure';
+import logo from '~assets/logo-white.png';
+import Routes from '~constants/routes';
 
 function Sidebar() {
   return (

@@ -1,22 +1,16 @@
 import React, { lazy } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-
-import structure from '~constants/structure';
-
-import Sidebar from '~components/Sidebar';
-
-import ConfirmModal from '~components/ConfirmModal';
-
-import DeleteModal from '~components/DeleteModal';
-
-import Navbar from '~components/Navbar';
-
 import { push } from 'connected-react-router';
 
-import Routes from '~constants/routes';
-
 import styles from './styles.module.scss';
+
+import structure from '~constants/structure';
+import Sidebar from '~components/Sidebar';
+import ConfirmModal from '~components/ConfirmModal';
+import DeleteModal from '~components/DeleteModal';
+import Navbar from '~components/Navbar';
+import Routes from '~constants/routes';
 
 const Index = lazy(() => import('./screens/Index'));
 const Detail = lazy(() => import('./screens/Detail'));

@@ -2,13 +2,11 @@ import React, { useEffect } from 'react';
 import { Formik } from 'formik';
 import { connect } from 'react-redux';
 
-import { actionCreators as modalActions } from '~redux/modal/actions';
-
-import { actionCreators as resourceActions } from '~redux/resource/actions';
-
-import Spinner from '~components/Spinner';
-
 import EditContainer from './layout';
+
+import { actionCreators as modalActions } from '~redux/modal/actions';
+import { actionCreators as resourceActions } from '~redux/resource/actions';
+import Spinner from '~components/Spinner';
 
 function Edit({ resource, dispatch, match, loading, data }) {
   useEffect(() => {

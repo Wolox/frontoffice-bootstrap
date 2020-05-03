@@ -2,13 +2,11 @@ import React from 'react';
 import { t } from 'i18next';
 import { Field } from 'formik';
 
-import leftArrow from '~assets/left-arrow.svg';
-
-import Icon from '~components/Icon';
-
-import { defaultInputs } from '~constants/structure';
-
 import styles from './styles.module.scss';
+
+import leftArrow from '~assets/left-arrow.svg';
+import Icon from '~components/Icon';
+import { defaultInputs } from '~constants/structure';
 
 function CreationLayout({ modelData, handleSubmit, handleCancel }) {
   return (

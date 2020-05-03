@@ -1,28 +1,62 @@
 import React from 'react';
-import { date, func } from 'prop-types';
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
+import PropTypes from 'prop-types';
+import moment from 'moment';
 
-function Picker({ selectedDate, onDateChange }) {
+function Picker({
+  className,
+  textClassName,
+  dataFor,
+  label,
+  inputClassName,
+  placeholder,
+  inputId,
+  inputType,
+  input,
+  disabled,
+  field
+}) {
+  const parsedValue = moment(field.value).format('YYYY-MM-DD');
   return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <KeyboardDatePicker
-        autoOk
-        variant="inline"
-        inputVariant="outlined"
-        format="dd/MM/yyyy"
-        value={selectedDate}
-        InputAdornmentProps={{ position: 'start' }}
-        onChange={onDateChange}
-        maxDateMessage="Date should be not after max date"
+    <div className={`column start ${className}`}>
+      <label className={`${textClassName} m-bottom-1`} htmlFor={dataFor}>
+        {label}
+      </label>
+      <input
+        className={`input ${inputClassName}`}
+        name={field.name}
+        placeholder={placeholder}
+        autoComplete="new-password"
+        id={inputId}
+        type={field.type || inputType}
+        {...input}
+        disabled={disabled}
+        {...field}
+        value={parsedValue}
       />
-    </MuiPickersUtilsProvider>
+    </div>
   );
 }
 
 Picker.propTypes = {
-  selectedDate: date,
-  onDateChange: func
+  className: PropTypes.string,
+  dataFor: PropTypes.string,
+  disabled: PropTypes.bool,
+  handleChange: PropTypes.func,
+  input: PropTypes.shape({}),
+  inputClassName: PropTypes.string,
+  inputId: PropTypes.string,
+  inputType: PropTypes.string,
+  label: PropTypes.string,
+  name: PropTypes.string,
+  placeholder: PropTypes.string,
+  textClassName: PropTypes.string
+};
+
+Picker.defaultProps = {
+  className: '',
+  inputClassName: '',
+  placeholder: '',
+  textClassName: ''
 };
 
 export default Picker;
