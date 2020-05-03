@@ -57,6 +57,7 @@ function Index({
             error={listError}
             errorMessage={t('Table:errorData')}
             loading={loading}
+            data={data}
             config={{ styles: { headers: styles.headers } }}
           />
           <Paginator

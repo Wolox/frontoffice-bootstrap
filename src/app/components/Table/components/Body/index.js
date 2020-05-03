@@ -7,7 +7,7 @@ import Row from './components/Row';
 import { columnsType, configType, rowType } from '~components/Table/propTypes';
 import styles from '~components/Table/styles.module.scss';
 
-function Body({ columns, config, title, rows, emptyBodyMessage }) {
+function Body({ columns, config, title, rows, emptyBodyMessage, data }) {
   const { styles: configStyles = {} } = config;
 
   return (
@@ -17,6 +17,7 @@ function Body({ columns, config, title, rows, emptyBodyMessage }) {
         {!!rows.length &&
           rows.map(row => (
             <Row
+              showActions={!data.hide_actions}
               action={row.action}
               columns={columns}
               config={row.config}

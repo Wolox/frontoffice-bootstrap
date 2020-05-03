@@ -32,6 +32,7 @@ export default {
       edit: ['name', 'avatar', 'stock', 'status', 'date'],
       show: ['name', 'avatar', 'description', 'date'],
       index: ['id', 'name', 'description', 'date'],
+      hide_actions: false,
       attributes: [
         {
           name: 'id',

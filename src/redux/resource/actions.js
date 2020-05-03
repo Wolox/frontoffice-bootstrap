@@ -47,7 +47,7 @@ export const actionCreators = {
     injections: [
       withSuccess(dispatch => {
         dispatch(push(Routes.HOME));
-        toast(t('List:created'));
+        toast(t('Index:created'));
       })
     ]
   }),
@@ -58,7 +58,7 @@ export const actionCreators = {
     injections: [
       withSuccess(() => {
         history.goBack();
-        toast(t('List:deleted'));
+        toast(t('Index:deleted'));
       })
     ]
   }),
@@ -69,7 +69,7 @@ export const actionCreators = {
     injections: [
       withSuccess(dispatch => {
         dispatch(push(Routes.HOME));
-        toast(t('List:deleted'));
+        toast(t('Index:deleted'));
       })
     ]
   })

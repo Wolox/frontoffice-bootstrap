@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { any, string } from 'prop-types';
+import { any, string, bool } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -31,8 +31,7 @@ function ActionComponent({ dispatch, ...props }) {
 
 const ConnectedActionComponent = connect()(ActionComponent);
 
-function Row({ action, config, columns, data, url }) {
-  const { props: actionComponentProps } = action;
+function Row({ action, config, columns, data, url, showActions }) {
   const { styles: configStyles = {} } = config;
   return (
     <div className={classNames(styles.rowContainer, configStyles.rowContainer)}>
@@ -48,25 +47,28 @@ function Row({ action, config, columns, data, url }) {
               `item-${columns[columnName].columnProportion}`
             )}
           >
-            {index ?
-              CellComponent ? (
+            {index
+              ? CellComponent ? (
                 <CellComponent {...cellData} />
+              ) : (
+                cellData
               )
-                : cellData
              : (
-               <Link to={url} className={classNames(styles.rowLink, configStyles.rowLink)}>
-                {CellComponent ? <CellComponent {...cellData} /> : cellData}
-              </Link>
+              <Link to={url} className={classNames(styles.rowLink, configStyles.rowLink)}>
+                 {CellComponent ? <CellComponent {...cellData} /> : cellData}
+               </Link>
             )}
           </Cell>
         ) : null;
       })}
-      <Cell
-        key={`${data.id}-actions`}
-        className={classNames(styles.cell, configStyles.cell, styles.actionCell)}
-      >
-        <ConnectedActionComponent row={data} />
-      </Cell>
+      {showActions && (
+        <Cell
+          key={`${data.id}-actions`}
+          className={classNames(styles.cell, configStyles.cell, styles.actionCell)}
+        >
+          <ConnectedActionComponent row={data} />
+        </Cell>
+      )}
     </div>
   );
 }
@@ -77,6 +79,7 @@ Row.propTypes = {
   config: configType,
   // eslint-disable-next-line react/forbid-prop-types
   data: any,
+  showActions: bool,
   url: string
 };
 
