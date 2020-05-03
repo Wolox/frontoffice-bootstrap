@@ -14,7 +14,7 @@ function Sidebar() {
       <Link to={Routes.HOME} className={`${styles.logo} m-top-1 m-bottom-1`}>
         <img src={logo} alt="logo" className={styles.logo} />
       </Link>
-      {structure
+      {structure.models
         .filter(model => !model.only || model.only.INDEX)
         .map(model => (
           <NavLink

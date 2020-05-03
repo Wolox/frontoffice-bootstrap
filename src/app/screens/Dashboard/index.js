@@ -1,6 +1,7 @@
 import React, { lazy } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 import styles from './styles.module.scss';
 
@@ -17,7 +18,7 @@ const Create = lazy(() => import('./screens/Create'));
 const Edit = lazy(() => import('./screens/Edit'));
 
 const GenericRouter = () =>
-  structure.map(model => (
+  structure.models.map(model => (
     <Switch key={model.route}>
       <Route exact path={`/${model.route}`} render={props => <Index {...props} data={model} />} />
       {(!model.only || model.only.CREATE) && (
@@ -37,6 +38,10 @@ const HomePage = () => <span className="self-center">Welcome to Frontoffice Dash
 function Dashboard({ cancelModal, deleteModal }) {
   return (
     <div className="row">
+      <Helmet>
+        <title>{structure.appName}</title>
+        <link rel="shortcut icon" href={structure.favicon} />
+      </Helmet>
       <Sidebar />
       <ConfirmModal open={cancelModal} />
       <DeleteModal open={deleteModal} />
