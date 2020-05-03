@@ -40,10 +40,10 @@ function Index({
   return (
     <Fragment>
       <div className="row space-between middle form-header">
-        <h1 className="title2">{t('List:componentList', { component: t(`${data.name}:model`) })}</h1>
+        <h1 className="title2">{t('Index:componentList', { component: t(`${data.name}:model`) })}</h1>
         {(!only || only.CREATE) && (
           <Link to={`${match.path}/new`} className={`${styles.link} button-primary`}>
-            {t('List:create')}
+            {t('Index:create')}
           </Link>
         )}
       </div>
