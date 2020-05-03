@@ -1,7 +1,6 @@
 import React, { lazy } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { push } from 'connected-react-router';
 
 import styles from './styles.module.scss';
 
@@ -33,23 +32,20 @@ const GenericRouter = () =>
     </Switch>
   ));
 
-function Dashboard({ cancelModal, deleteModal, ...props }) {
-  if (window.location.pathname === Routes.HOME) {
-    props.dispatch(push(`/${structure[0].route}`));
-  }
+const HomePage = () => <span className="self-center">Welcome to Frontoffice Dashboard</span>;
 
+function Dashboard({ cancelModal, deleteModal }) {
   return (
     <div className="row">
       <Sidebar />
       <ConfirmModal open={cancelModal} />
       <DeleteModal open={deleteModal} />
-      <div className="column item-1">
+      <div className="column item-1 middle">
         <Navbar />
         <main className={`${styles.container} column`}>
           <Switch>
+            <Route exact path={Routes.HOME} component={HomePage} />
             <GenericRouter />
-            <Route exact path={Routes.HOME} component={Index} />
-            <Route component={<Redirect to={Routes.HOME} />} />
           </Switch>
         </main>
       </div>
